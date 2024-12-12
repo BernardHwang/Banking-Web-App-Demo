@@ -30,21 +30,21 @@ const Dashboard = () => {
             className='service-item'
             onClick={() => navigate('/debit')}
           >
-            <img src='https://cdn-icons-png.flaticon.com/512/1170/1170627.png' alt='Debit' />
+            <i class="fi fi-rr-money-from-bracket"></i>
             <p>Withdrawal</p>
           </div>
           <div
             className='service-item'
             onClick={() => navigate('/credit')}
           >
-            <img src='https://cdn-icons-png.flaticon.com/512/1161/1161798.png' alt='Credit' />
+            <i class="fi fi-rr-deposit-alt"></i>
             <p>Deposit</p>
           </div>
           <div
             className='service-item'
             onClick={() => navigate('/transfer')}
           >
-            <img src='https://cdn-icons-png.flaticon.com/512/189/189665.png' alt='Transfer Funds' />
+            <i class="fi fi-rr-money-coin-transfer icon"></i>
             <p>Transfer Funds</p>
           </div>
         </div>
