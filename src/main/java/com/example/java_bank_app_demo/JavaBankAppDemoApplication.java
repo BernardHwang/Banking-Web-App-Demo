@@ -43,13 +43,13 @@ public class JavaBankAppDemoApplication {
 				.set("email", "sandy@example.com")
                 .build();
 			// 4. Evaluate flag
-            // boolean flagValue = client.boolVariation("flag-key-123abc", context, false);
+            boolean flagValue = client.boolVariation("test-feature-mh", context, false);
 
-            // if (flagValue) {
-            //     System.out.println("Feature is enabled for the user!");
-            // } else {
-            //     System.out.println("Feature is disabled for the user!");
-            // }
+            if (flagValue) {
+                System.out.println("Feature is enabled for the user!");
+            } else {
+                System.out.println("Feature is disabled for the user!");
+            }
 
             // 5. Close the client when done
             client.close();

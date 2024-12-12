@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../style/components/Transfer.css';
 
 const Transfer = () => {
@@ -6,6 +7,7 @@ const Transfer = () => {
   const [destinationAccount, setDestinationAccount] = useState('');
   const [amount, setAmount] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleTransfer = async (e) => {
     e.preventDefault();
@@ -28,6 +30,15 @@ const Transfer = () => {
       const result = await response.json();
       if (response.ok) {
         setMessage(`Success: ${result.responseMessage}`);
+        
+        // Update user data in local storage
+        const updatedUser = { ...JSON.parse(localStorage.getItem('user')) };
+        updatedUser.accountInfo.accountBalance -= parseFloat(amount);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 2000); // Adjust the delay as needed
       } else {
         setMessage(`Error: ${result.responseMessage}`);
       }
@@ -67,7 +78,7 @@ const Transfer = () => {
             required
           />
         </div>
-        <button type="submit">Transfer Funds</button>
+        <button type="submit">Transfer</button>
       </form>
       {message && <p className="message">{message}</p>}
     </div>

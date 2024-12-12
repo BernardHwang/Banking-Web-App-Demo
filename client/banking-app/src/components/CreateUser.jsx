@@ -39,7 +39,7 @@ const CreateUser = () => {
   };
 
   return (
-    <div className="container">
+    <div className="create-user-container">
       <h2>Create User</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../style/components/Debit.css';
 
@@ -6,6 +7,7 @@ const Debit = () => {
   const [accountNumber, setAccountNumber] = useState('');
   const [amount, setAmount] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleDebit = async (e) => {
     e.preventDefault();
@@ -18,6 +20,15 @@ const Debit = () => {
 
       if (response.data.responseCode === '007') {
         setResponseMessage(`Success: ${response.data.responseMessage}`);
+        
+        // Update user data in local storage
+        const updatedUser = { ...JSON.parse(localStorage.getItem('user')) };
+        updatedUser.accountInfo.accountBalance -= parseFloat(amount);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 2000); // Adjust the delay as needed
       } else {
         setResponseMessage(`Error: ${response.data.responseMessage}`);
       }
@@ -28,7 +39,7 @@ const Debit = () => {
 
   return (
     <div className='debit-container'>
-      <h2>Debit Account</h2>
+      <h2>Withdrawal</h2>
       <form className='debit-form' onSubmit={handleDebit}>
         <div className='form-group'>
           <label htmlFor='accountNumber'>Account Number:</label>
@@ -52,7 +63,7 @@ const Debit = () => {
           />
         </div>
 
-        <button type='submit'>Debit</button>
+        <button type='submit'>Submit</button>
       </form>
       {responseMessage && <p className='response-message'>{responseMessage}</p>}
     </div>

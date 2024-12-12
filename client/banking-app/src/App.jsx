@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-// import { LDProvider } from 'launchdarkly-react-client-sdk';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// 1. Import
+import { LDProvider } from 'launchdarkly-react-client-sdk';
 
 import NavBar from './components/NavBar';
 import Intro from './components/Intro';
@@ -14,29 +15,52 @@ import Transfer from './components/Transfer';
 import './style/App.css';
 
 function App() {
+  // State to track whether the user has scrolled past 20px
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Add a scroll event listener
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    // <LDProvider
-    //   clientSideID="your-client-side-id" // Replace with your LaunchDarkly client-side ID
-    //   context={{ 
-    //     kind: 'user',
-    //     key: 'user-key',
-    //     name: 'MH1',
-    //     email: 'mh1@gmail.com'
-    //   }} 
-    // >
+    // 2. Initialize 
+    <LDProvider
+      clientSideID="6751064001dbff09a1662058" // Replace with your LaunchDarkly client-side ID
+      context={{ 
+        kind: 'user',
+        key: 'user-key',
+        name: 'MH1',
+        email: 'mh1@gmail.com'
+      }} 
+    >
       <Router>
-          <NavBar />
-          <Routes>
-              <Route path="/" element={<Intro />} />      
-              <Route path="/login" element={<Login />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/signup" element={<CreateUser />} />
-              <Route path="/debit" element={<Debit />} />
-              <Route path="/credit" element={<Credit />} />
-              <Route path="/transfer" element={<Transfer />} />
-          </Routes>
+        {/* Pass the isScrolled prop to the NavBar */}
+        <NavBar isScrolled={isScrolled} />
+        <Routes>
+          <Route path="/" element={<Intro />} />      
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/signup" element={<CreateUser />} />
+          <Route path="/debit" element={<Debit />} />
+          <Route path="/credit" element={<Credit />} />
+          <Route path="/transfer" element={<Transfer />} />
+        </Routes>
       </Router>
-    // </LDProvider>
+    </LDProvider>
   );
 }
 

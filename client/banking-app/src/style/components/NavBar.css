@@ -1,0 +1,61 @@
+.navbar {
+  position: fixed !important;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px; /* Add padding to the sides */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.navbar.scrolled {
+  background-color: white; /* Background color applied when scrolled */
+}
+
+.navbar-logo img {
+  height: 90px;
+}
+
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+  margin-right: 50px;
+}
+
+.navbar-buttons .btn {
+  margin-left: 20px; /* Change to margin-left for spacing between buttons */
+  color: white;
+  text-decoration: none;
+}
+
+.navbar .navbar-buttons .btn-primary {
+  background-color: #ab188b;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+}
+
+.navbar .navbar-buttons .btn-primary-new {
+  background-color: #d31c1c;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+}
+
+.navbar .navbar-buttons .btn-secondary {
+  background-color: #5b0045;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-primary-new:hover {
+  opacity: 0.8;
+  text-decoration: none;
+}

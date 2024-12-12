@@ -4,15 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import '../style/components/Login.css';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     axios.post('http://localhost:8081/api/user/login', {
-      email,
-      phoneNumber
+      username,
+      password
     }, {
       headers: {
         'Content-Type': 'application/json'
@@ -35,22 +35,22 @@ const Login = () => {
     <div className="login-container">
       <h2>Login</h2>
       <div className="form-group">
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="username">Username:</label>
         <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
         />
       </div>
       <div className="form-group">
-        <label htmlFor="phoneNumber">Phone Number:</label>
+        <label htmlFor="password">Password:</label>
         <input
-            type="text"
-            id="phoneNumber"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
         />
       </div>

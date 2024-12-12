@@ -46,12 +46,14 @@ public class UserServiceImpl implements UserService{
                 .otherName(userRequest.getOtherName())
                 .gender(userRequest.getGender())
                 .address(userRequest.getAddress())
-                .stateOfOrigin(userRequest.getStateOfOrigin())
+                // .stateOfOrigin(userRequest.getStateOfOrigin())
                 .accountNumber(AccountUtils.generateAccountNumber())
                 .accountBalance(BigDecimal.ZERO)
                 .email(userRequest.getEmail())
                 .phoneNumber(userRequest.getPhoneNumber())
-                .alternativePhoneNumber(userRequest.getAlternativePhoneNumber())
+                // .alternativePhoneNumber(userRequest.getAlternativePhoneNumber())
+                .username(userRequest.getUsername())
+                .password(userRequest.getPassword())
                 .status("ACTIVE")
                 .build();
         
@@ -78,9 +80,9 @@ public class UserServiceImpl implements UserService{
     @Override
     public BankResponse loginAccount(UserRequest userRequest) {
         /**
-         * User login - verify email and phoneNumber
+         * User login 
          */
-        User user = userRepository.findByEmailAndPhoneNumber(userRequest.getEmail(), userRequest.getPhoneNumber());
+        User user = userRepository.findByUsernameAndPassword(userRequest.getUsername(), userRequest.getPassword());
 
         if (user != null) {
                 // Successful login response

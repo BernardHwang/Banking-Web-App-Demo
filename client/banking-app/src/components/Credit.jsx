@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../style/components/Credit.css';
 
 const Credit = () => {
   const [accountNumber, setAccountNumber] = useState('');
   const [amount, setAmount] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleCredit = async (e) => {
     e.preventDefault();
@@ -26,6 +28,15 @@ const Credit = () => {
       const result = await response.json();
       if (response.ok) {
         setMessage(`Success: ${result.responseMessage}`);
+        
+        // Update user data in local storage
+        const updatedUser = { ...JSON.parse(localStorage.getItem('user')) };
+        updatedUser.accountInfo.accountBalance += parseFloat(amount);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 2000);
       } else {
         setMessage(`Error: ${result.responseMessage}`);
       }
@@ -36,7 +47,7 @@ const Credit = () => {
 
   return (
     <div className="credit-container">
-      <h2>Credit Account</h2>
+      <h2>Deposit</h2>
       <form onSubmit={handleCredit}>
         <div className="form-group">
           <label>Account Number:</label>
@@ -56,7 +67,7 @@ const Credit = () => {
             required
           />
         </div>
-        <button type="submit">Credit Account</button>
+        <button type="submit">Submit</button>
       </form>
       {message && <p className="message">{message}</p>}
     </div>

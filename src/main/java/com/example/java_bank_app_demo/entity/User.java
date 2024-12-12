@@ -23,7 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "users")
+@Table(name = "users_new")
 
 public class User {
 
@@ -35,12 +35,14 @@ public class User {
     private String otherName;
     private String gender;
     private String address;
-    private String stateOfOrigin;
+    // private String stateOfOrigin;
     private String accountNumber;
     private BigDecimal accountBalance;
     private String email;
     private String phoneNumber;
-    private String alternativePhoneNumber;
+    // private String alternativePhoneNumber;
+    private String username;
+    private String password;
     private String status;
     @CreationTimestamp
     private LocalDateTime createdAt;
