@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.example.java_bank_app_demo.dto.AccountInfo;
 import com.example.java_bank_app_demo.dto.BankResponse;
 import com.example.java_bank_app_demo.dto.CreditDebitRequest;
-// import com.example.java_bank_app_demo.dto.EmailDetails;
 import com.example.java_bank_app_demo.dto.EnquiryRequest;
 import com.example.java_bank_app_demo.dto.TransferRequest;
 import com.example.java_bank_app_demo.dto.UserRequest;
@@ -24,6 +23,7 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     EmailService emailService;
+
 
     @Override
     public BankResponse createAccount(UserRequest userRequest) {
@@ -58,14 +58,7 @@ public class UserServiceImpl implements UserService{
                 .build();
         
         User savedUser = userRepository.save(newUser);
-        //Send email Alert
-        // EmailDetails emailDetails = EmailDetails.builder()
-        //         .recipient(savedUser.getEmail())
-        //         .subject("ACCOUNT CREATION")
-        //         .messageBody("Congratulations! Your Account Has been Successfully Created.\nYour Account Details: \n" +
-        //                 "Account Name: " + savedUser.getFirstName() + " " + savedUser.getLastName() + " " + savedUser.getOtherName() + "\nAccount Number: " + savedUser.getAccountNumber())
-        //         .build();
-        // emailService.sendEmailAlert(emailDetails);
+       
         return BankResponse.builder()
                 .responseCode(AccountUtils.ACCOUNT_CREATION_SUCCESS)
                 .responseMessage(AccountUtils.ACCOUNT_CREATION_MESSAGE)
@@ -206,11 +199,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public BankResponse transfer(TransferRequest request) {
-        // get account to debit (check if exist)
-        // check amount
-        // debit the account
-        // get amount to credit
-        // credit the account
         boolean isDestinationAccountExist = userRepository.existsByAccountNumber(request.getDestinationAccountNumber());
         if(!isDestinationAccountExist) {
                 return BankResponse.builder()
