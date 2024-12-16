@@ -24,6 +24,8 @@ public class UserServiceImpl implements UserService{
     @Autowired
     EmailService emailService;
 
+    @Autowired
+    FeatureFlagsService featureFlagsService;
 
     @Override
     public BankResponse createAccount(UserRequest userRequest) {
@@ -55,6 +57,8 @@ public class UserServiceImpl implements UserService{
                 .username(userRequest.getUsername())
                 .password(userRequest.getPassword())
                 .status("ACTIVE")
+                .role(userRequest.getRole())
+                .context_key(userRequest.getContextKey())
                 .build();
         
         User savedUser = userRepository.save(newUser);
@@ -86,6 +90,12 @@ public class UserServiceImpl implements UserService{
                                         .accountBalance(user.getAccountBalance())
                                         .accountNumber(user.getAccountNumber())
                                         .accountName(user.getFirstName() + " " + user.getLastName() + " " + user.getOtherName())
+                                        .userRequest(UserRequest.builder()
+                                                .username(user.getUsername())
+                                                .email(user.getEmail())
+                                                .role(user.getRole())
+                                                .contextKey(user.getContext_key())
+                                                .build())
                                         .build())
                                 .build();
         }
@@ -131,9 +141,18 @@ public class UserServiceImpl implements UserService{
         User foundUser = userRepository.findByAccountNumber(request.getAccountNumber());
         return foundUser.getFirstName() + " " + foundUser.getLastName() + " " + foundUser.getOtherName();
     }
-
+    
     @Override
     public BankResponse creditAccount(CreditDebitRequest request) {
+        boolean maintenanceMode = featureFlagsService.getFeatureFlag("maintenance-feature");
+
+        if (maintenanceMode) {
+                return BankResponse.builder()
+                        .responseCode(AccountUtils.MAINTENANCE_CODE)
+                        .responseMessage(AccountUtils.MAINTENANCE_MESSAGE)
+                        .build();
+        }
+
         //checking if the account exists
         boolean isAccountExist = userRepository.existsByAccountNumber(request.getAccountNumber());
         if (!isAccountExist){

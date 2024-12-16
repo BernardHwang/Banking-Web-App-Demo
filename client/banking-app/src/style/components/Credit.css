@@ -48,3 +48,12 @@ button:hover {
   text-align: center;
   color: #333;
 }  
+
+.maintenance-message {
+  color: #721c24; /* Dark red text */
+  padding: 16px; /* Add some spacing */
+  font-size: 16px; /* Set font size */
+  font-weight: bold; /* Make text bold */
+  text-align: center; /* Center the text */
+  margin: 20px auto; /* Center horizontally and add vertical spacing */
+}

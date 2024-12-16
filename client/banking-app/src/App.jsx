@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // 1. Import
-import { LDProvider } from 'launchdarkly-react-client-sdk';
+import { LDProvider, useLDClient } from 'launchdarkly-react-client-sdk';
 
 import NavBar from './components/NavBar';
 import Intro from './components/Intro';
@@ -17,6 +17,7 @@ import './style/App.css';
 function App() {
   // State to track whether the user has scrolled past 20px
   const [isScrolled, setIsScrolled] = useState(false);
+  const ldClient = useLDClient();
 
   // Add a scroll event listener
   useEffect(() => {
@@ -36,16 +37,11 @@ function App() {
     };
   }, []);
 
+
   return (
     // 2. Initialize 
     <LDProvider
       clientSideID="6751064001dbff09a1662058" // Replace with your LaunchDarkly client-side ID
-      context={{ 
-        kind: 'user',
-        key: 'user-key',
-        name: 'MH1',
-        email: 'mh1@gmail.com'
-      }} 
     >
       <Router>
         {/* Pass the isScrolled prop to the NavBar */}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../style/components/Dashboard.css';
+import { useFlags } from 'launchdarkly-react-client-sdk';
 
 const Dashboard = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
@@ -10,6 +11,8 @@ const Dashboard = () => {
     // Re-fetch user data from local storage
     setUser(JSON.parse(localStorage.getItem('user')));
   }, []);
+
+  const { chgSignOutBtn } = useFlags();
 
   const handleSignOut = () => {
     localStorage.removeItem('user');
@@ -50,7 +53,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className='sign-out'>
+      <div className={`${chgSignOutBtn ? "sign-out-new" : "sign-out"}`}>
         <button onClick={handleSignOut}>Sign Out</button>
       </div>
     </div>

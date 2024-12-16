@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useFlags } from 'launchdarkly-react-client-sdk';
 import '../style/components/Credit.css';
 
 const Credit = () => {
@@ -7,6 +8,11 @@ const Credit = () => {
   const [amount, setAmount] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+
+  const { 'maintenanceFeature': isMaintenanceMode } = useFlags(); 
+  console.log(isMaintenanceMode)
+  const flags = useFlags();
+  console.log('Flags:', flags); // Logs all flags retrieved by the SDK
 
   const handleCredit = async (e) => {
     e.preventDefault();
@@ -47,29 +53,37 @@ const Credit = () => {
 
   return (
     <div className="credit-container">
-      <h2>Deposit</h2>
-      <form onSubmit={handleCredit}>
-        <div className="form-group">
-          <label>Account Number:</label>
-          <input
-            type="text"
-            value={accountNumber}
-            onChange={(e) => setAccountNumber(e.target.value)}
-            required
-          />
+      {isMaintenanceMode? (
+        <div className='maintenance-message'>
+          <h2>The service is currently under maintenance. Please try again later</h2>
         </div>
-        <div className="form-group">
-          <label>Amount:</label>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-      {message && <p className="message">{message}</p>}
+      ) : (
+        <>
+        <h2>Deposit</h2>
+          <form onSubmit={handleCredit}>
+            <div className="form-group">
+              <label>Account Number:</label>
+              <input
+                type="text"
+                value={accountNumber}
+                onChange={(e) => setAccountNumber(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Amount:</label>
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit">Submit</button>
+          </form>
+          {message && <p className="message">{message}</p>}
+        </>
+      )}
     </div>
   );
 };

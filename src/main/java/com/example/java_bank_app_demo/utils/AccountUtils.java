@@ -22,6 +22,8 @@ public class AccountUtils {
     public static final String TRANSFER_SUCCESSFUL_MESSAGE = "Transfer Successfully!";
     public static final String LOGIN_FAIL_CODE = "009";
     public static final String LOGIN_FAIL_MESSAGE = "Login failed.";
+    public static final String MAINTENANCE_CODE = "010";
+    public static final String MAINTENANCE_MESSAGE = "This service is curruntly under maintenance.";
 
     public static String generateAccountNumber() {
          /**
