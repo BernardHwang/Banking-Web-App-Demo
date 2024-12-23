@@ -100,7 +100,7 @@ const Login = () => {
           </option>
           {list.map((user) => (
             <option key={user.username} value={user.username}>
-              {user.username} - {user.isVIP ? "VIP" : "Normal"}
+              {user.username} - {user.isVIP ? "VIP" : "Normal"
             </option>
           ))}
         </select>
