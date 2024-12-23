@@ -46,6 +46,7 @@ public class User {
     private String status;
     private String role;
     private String context_key;
+    private String level;
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp

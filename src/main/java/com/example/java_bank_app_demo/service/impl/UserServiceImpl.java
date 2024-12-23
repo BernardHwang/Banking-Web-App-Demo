@@ -95,6 +95,7 @@ public class UserServiceImpl implements UserService{
                                                 .email(user.getEmail())
                                                 .role(user.getRole())
                                                 .contextKey(user.getContext_key())
+                                                .level(user.getLevel())
                                                 .build())
                                         .build())
                                 .build();

@@ -13,6 +13,7 @@ import Credit from './components/Credit';
 import Transfer from './components/Transfer';
 
 import './style/App.css';
+import { UserProvider } from './components/UserContext';
 
 function App() {
   // State to track whether the user has scrolled past 20px
@@ -45,16 +46,18 @@ function App() {
     >
       <Router>
         {/* Pass the isScrolled prop to the NavBar */}
-        <NavBar isScrolled={isScrolled} />
-        <Routes>
-          <Route path="/" element={<Intro />} />      
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/signup" element={<CreateUser />} />
-          <Route path="/debit" element={<Debit />} />
-          <Route path="/credit" element={<Credit />} />
-          <Route path="/transfer" element={<Transfer />} />
-        </Routes>
+        <UserProvider>
+          <NavBar isScrolled={isScrolled} />
+          <Routes>
+            <Route path="/" element={<Intro />} />      
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/signup" element={<CreateUser />} />
+            <Route path="/debit" element={<Debit />} />
+            <Route path="/credit" element={<Credit />} />
+            <Route path="/transfer" element={<Transfer />} />
+          </Routes>
+        </UserProvider>
       </Router>
     </LDProvider>
   );
