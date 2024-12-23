@@ -4,5 +4,6 @@
 3. 'npm run dev' to start
 
 # Alert
-**Backend were using Springboot to run, in current repo, database has not been created, so only frontend can be executed**\n
+**Backend were using Springboot to run, in current repo, database has not been created, so only frontend can be executed**
+
 **The navigation not completed yet**
