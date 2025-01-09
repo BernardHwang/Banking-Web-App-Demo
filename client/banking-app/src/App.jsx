@@ -11,9 +11,11 @@ import Dashboard from './components/Dashboard';
 import Debit from './components/Debit';
 import Credit from './components/Credit';
 import Transfer from './components/Transfer';
+import History from './components/History';
 
 import './style/App.css';
 import { UserProvider } from './components/UserContext';
+import TransferDashboard from './components/TransferDashboard';
 
 function App() {
   // State to track whether the user has scrolled past 20px
@@ -56,6 +58,8 @@ function App() {
             <Route path="/debit" element={<Debit />} />
             <Route path="/credit" element={<Credit />} />
             <Route path="/transfer" element={<Transfer />} />
+            <Route path="/transferDashboard" element={<TransferDashboard />} />
+            <Route path="/history" element={<History />} />
           </Routes>
         </UserProvider>
       </Router>

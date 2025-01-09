@@ -6,6 +6,11 @@ import { LuCrown } from "react-icons/lu";
 import { RiVipLine } from "react-icons/ri";
 import { FiLogOut } from "react-icons/fi";
 import '../style/components/Dashboard.css'; // Assuming custom styles are in the same folder
+import limitOffer from '../assets/limit_offer.png';
+import rateUp from '../assets/rate_up.png';
+import vip from '../assets/vip.png';
+import vip_like from '../assets/vip_like.png';
+import coming_soon from '../assets/coming_soon.png';
 
 const Dashboard = () => {
   const { user, logout } = useUserContext();
@@ -57,13 +62,17 @@ const Dashboard = () => {
           <i className="fi fi-rr-deposit-alt"></i>
           <p>Deposit</p>
         </div>
-        <div className="service-item" onClick={() => navigate('/transfer')}>
+        <div className="service-item" onClick={() => navigate('/transferDashboard')}>
           <i className="fi fi-rr-money-coin-transfer"></i>
           <p>Transfer Funds</p>
         </div>
         <div className="service-item" onClick={openModal}>
-        <i className= {user.isVIP ? 'fi fi-rr-membership-vip' : "fi fi-rr-membership"}></i>
+          <i className= {user.isVIP ? 'fi fi-rr-membership-vip' : "fi fi-rr-membership"}></i>
           <p>{user.isVIP ? 'VIP Privilege' : 'How to be a VIP'}</p>
+        </div>
+        <div className="service-item" onClick={() => navigate('/history')}>
+          <i className= "fi fi-rr-time-past"></i>
+          <p>Transaction History</p>
         </div>
       </div>
 
@@ -103,6 +112,38 @@ const Dashboard = () => {
           <FiLogOut size={20} />
           Sign Out
         </button>
+      </div>
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+        <div style={{ display: 'flex', flexDirection: 'row', margin: 16, padding: '16px 16px 16px 0px', width: '50%', border: 'solid', borderWidth: 2, borderBlockColor: 'black', borderRadius: 25}}>
+          <img src={user.isVIP ? limitOffer : vip} alt='limit time png' width={'35%'} style={{padding: '0px 20px 20px 20px', borderRadius: "25%"}}/>
+          <div>
+            <h1>New Year offer:<br/>1<span style={{fontSize: 16, alignContent: 'start'}}>st</span> Jan 2025 to 31<span style={{fontSize: 16, alignContent: 'start'}}>st</span> Dec 2025</h1>
+            <p style={{fontSize: 24}}>{user.isVIP ? "Here's the" :'Grab the VIP Ticket to enjoy the'} new deposit rate of <strong style={{color: 'red', fontSize: 32}}>15%</strong> per year</p>
+            <div style={{display: 'flex', justifyContent: 'end'}}>
+              <img src={rateUp} alt="" width={'15%'}/>
+            </div>
+          </div>
+        </div>
+        {user.isVIP ? 
+          <div style={{ display: 'flex', flexDirection: 'column', margin: 16, padding: '16px 16px 16px 0px', width: '50%', border: 'solid', borderWidth: 2, borderBlockColor: 'black', borderRadius: 25, justifyContent: 'center', alignItems: 'center'}}>
+            <h1>Stay Tuned for the latest Promotion</h1>
+            <img src={coming_soon} alt='stay tuned png' width={'35%'} style={{padding: '0px 20px 20px 20px'}}/>
+          </div>
+        : 
+          <div style={{ display: 'flex', flexDirection: 'row', margin: 16, padding: '16px 16px 16px 0px', width: '50%', border: 'solid', borderWidth: 2, borderBlockColor: 'black', borderRadius: 25}}>
+            <div style={{marginLeft: 16}}>
+              <h1>Why Become a VIP:</h1>
+              <ol style={{listStyleType: 'georgian'}}>
+                <li style={{fontSize: 24}}>Priority customer support</li>
+                <li style={{fontSize: 24}}>Exclusive rewards & discounts</li>
+                <li style={{fontSize: 24}}>Higher transaction limits</li>
+                <li style={{fontSize: 24}}>Free monthly financial consultations</li>
+              </ol>
+              <h2>So what you're waiting for, go upgrade to VIP</h2>
+            </div>
+            <img src={vip_like} alt='vip like png' width={'35%'} style={{padding: '0px 20px 20px 20px'}}/>
+          </div>
+        }
       </div>
     </div>
   );
